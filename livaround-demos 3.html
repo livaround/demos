@@ -1,0 +1,1307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>livaround — product demos</title>
+<meta name="description" content="Eight short demos of the livaround platform — AI messaging, iCal sync, dispatch, multilingual ops, and more.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --brand-600:#2563EB;--brand-700:#1E4FBF;--brand-400:#6389F7;
+  --sun-500:#FFB547;--sun-700:#B5781E;--sun-50:#FFF7E6;--sun-300:#FFC866;
+  --coral-500:#FF7A59;--coral-700:#B8472C;
+  --ink:#0B2A3B;
+  --slate-700:#32547A;--slate-500:#6C88A5;--slate-400:#91A6BE;--slate-300:#B6C4D3;--slate-200:#E2EAF1;--slate-100:#EEF2F7;--slate-50:#F5F8FB;
+  --sand:#FAFBFD;--paper:#FFFFFF;
+  --success:#10B981;--success-bg:#DCFCE7;--success-fg:#047857;
+  --shadow-sm:0 1px 2px rgba(11,42,59,0.06);
+  --shadow-md:0 4px 12px rgba(11,42,59,0.08);
+  --shadow-lg:0 12px 32px rgba(11,42,59,0.10);
+  --ease:cubic-bezier(0.22,1,0.36,1);
+}
+html{scroll-behavior:smooth}
+body{background:var(--sand);color:var(--ink);font-family:'DM Sans',-apple-system,BlinkMacSystemFont,sans-serif;-webkit-font-smoothing:antialiased;line-height:1.5}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.eyebrow{font-family:'JetBrains Mono',ui-monospace,monospace;font-size:11px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate-500)}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:50;background:rgba(250,251,253,0.85);backdrop-filter:saturate(180%) blur(14px);-webkit-backdrop-filter:saturate(180%) blur(14px);border-bottom:1px solid var(--slate-200)}
+nav .inner{max-width:1200px;margin:0 auto;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+nav .logo{display:flex;align-items:center;gap:10px;font-size:19px;font-weight:700;letter-spacing:-0.02em;color:var(--ink);text-decoration:none}
+nav .links{display:flex;align-items:center;gap:28px}
+nav .links a{color:var(--slate-700);text-decoration:none;font-size:14px;font-weight:500;transition:color .18s var(--ease)}
+nav .links a:hover{color:var(--ink)}
+nav .cta{background:var(--ink);color:var(--paper);padding:9px 18px;border-radius:9999px;font-size:14px;font-weight:600;text-decoration:none;transition:transform .18s var(--ease),background .18s var(--ease)}
+nav .cta:hover{background:#081F2D;transform:translateY(-1px)}
+
+/* Page header */
+.page-head{max-width:1200px;margin:0 auto;padding:72px 24px 48px;text-align:center}
+.page-head .eyebrow{margin-bottom:16px;display:block}
+.page-head h1{font-size:clamp(36px,5vw,56px);line-height:1.05;font-weight:700;letter-spacing:-0.02em;color:var(--ink);margin-bottom:18px}
+.page-head h1 em{font-style:normal;color:var(--brand-600)}
+.page-head p{font-size:18px;color:var(--slate-700);max-width:640px;margin:0 auto 28px}
+.head-meta{display:inline-flex;align-items:center;gap:10px;padding:8px 14px;background:var(--paper);border:1px solid var(--slate-200);border-radius:9999px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--slate-700);box-shadow:var(--shadow-sm)}
+.head-meta .dot{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 0 rgba(16,185,129,0.55);animation:pulse 2s var(--ease) infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(16,185,129,0.55)}70%{box-shadow:0 0 0 8px rgba(16,185,129,0)}100%{box-shadow:0 0 0 0 rgba(16,185,129,0)}}
+
+/* Demo index (chips) */
+.index{max-width:1200px;margin:0 auto;padding:0 24px 48px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.chip{padding:8px 14px;border-radius:9999px;background:var(--paper);border:1px solid var(--slate-200);font-size:13px;font-weight:500;color:var(--slate-700);text-decoration:none;transition:all .18s var(--ease);display:inline-flex;align-items:center;gap:8px}
+.chip:hover{border-color:var(--brand-600);color:var(--ink);transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.chip .num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate-400)}
+
+/* Demo section */
+.demo{max-width:1200px;margin:0 auto;padding:48px 24px;border-top:1px solid var(--slate-200)}
+.demo:first-of-type{border-top:0}
+.demo-head{display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:28px;flex-wrap:wrap}
+.demo-head .left{max-width:640px}
+.demo-head .eyebrow{margin-bottom:10px;display:block}
+.demo-head h2{font-size:32px;line-height:1.15;font-weight:700;letter-spacing:-0.02em;color:var(--ink);margin-bottom:10px}
+.demo-head p{font-size:16px;color:var(--slate-700);line-height:1.55}
+.demo-controls{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.ctrl{width:40px;height:40px;border-radius:9999px;border:1px solid var(--slate-200);background:var(--paper);color:var(--slate-700);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:all .18s var(--ease)}
+.ctrl:hover{border-color:var(--brand-600);color:var(--brand-600);transform:translateY(-1px)}
+.ctrl.primary{background:var(--ink);color:var(--paper);border-color:var(--ink);width:auto;padding:0 18px;gap:8px;font-size:13px;font-weight:600}
+.ctrl.primary:hover{background:#081F2D;color:var(--paper)}
+.ctrl svg{width:14px;height:14px}
+
+/* Stage */
+.stage{background:var(--paper);border:1px solid var(--slate-200);border-radius:20px;box-shadow:var(--shadow-md);overflow:hidden}
+.stage-body{display:grid;grid-template-columns:1fr 340px;gap:0;min-height:540px}
+@media (max-width:860px){.stage-body{grid-template-columns:1fr;min-height:auto}}
+.stage-left{padding:28px;border-right:1px solid var(--slate-200);position:relative;overflow:hidden;background:linear-gradient(180deg,var(--paper) 0%,var(--slate-50) 100%)}
+@media (max-width:860px){.stage-left{border-right:0;border-bottom:1px solid var(--slate-200)}}
+.stage-right{padding:28px;display:flex;align-items:center;justify-content:center;background:var(--slate-50)}
+
+/* Browser chrome (host web app) */
+.browser{background:var(--paper);border:1px solid var(--slate-200);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-sm)}
+.browser-bar{display:flex;align-items:center;gap:8px;padding:10px 14px;background:var(--slate-100);border-bottom:1px solid var(--slate-200)}
+.browser-bar .dots{display:flex;gap:6px}
+.browser-bar .dots span{width:10px;height:10px;border-radius:50%;background:var(--slate-300)}
+.browser-bar .url{flex:1;padding:5px 12px;background:var(--paper);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate-500);border:1px solid var(--slate-200);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.browser-body{padding:20px}
+
+/* Phone frame (worker/guest app) */
+.phone{width:300px;height:620px;border-radius:40px;background:var(--ink);padding:12px;box-shadow:var(--shadow-lg);position:relative;flex-shrink:0}
+.phone::after{content:"";position:absolute;top:24px;left:50%;transform:translateX(-50%);width:100px;height:6px;border-radius:3px;background:#000;opacity:.35;z-index:2}
+.phone-screen{width:100%;height:100%;border-radius:30px;background:var(--sand);overflow:hidden;position:relative;display:flex;flex-direction:column}
+.phone-statusbar{padding:14px 20px 6px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink);font-weight:600;margin-top:18px}
+.phone-statusbar .right{display:flex;gap:5px;align-items:center}
+.phone-statusbar .bars{display:flex;gap:2px;align-items:flex-end;height:9px}
+.phone-statusbar .bars i{width:2px;background:var(--ink);display:block}
+.phone-statusbar .bars i:nth-child(1){height:3px}
+.phone-statusbar .bars i:nth-child(2){height:5px}
+.phone-statusbar .bars i:nth-child(3){height:7px}
+.phone-statusbar .bars i:nth-child(4){height:9px}
+.phone-statusbar .batt{width:18px;height:9px;border:1px solid var(--ink);border-radius:2px;position:relative;padding:1px}
+.phone-statusbar .batt::after{content:"";position:absolute;right:-3px;top:2px;width:2px;height:3px;background:var(--ink);border-radius:0 1px 1px 0}
+.phone-statusbar .batt i{display:block;width:85%;height:100%;background:var(--ink);border-radius:1px}
+.phone-appbar{padding:10px 18px;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--slate-200)}
+.phone-appbar .title{font-size:14px;font-weight:600;color:var(--ink)}
+.phone-appbar .sub{font-size:11px;color:var(--slate-500);font-family:'JetBrains Mono',monospace}
+.phone-body{flex:1;overflow:hidden;position:relative;padding:14px;display:flex;flex-direction:column;gap:10px}
+
+/* Cards inside stages */
+.card{background:var(--paper);border:1px solid var(--slate-200);border-radius:14px;padding:14px;transition:all .28s var(--ease)}
+.card.ai{background:var(--sun-50);border-color:var(--sun-300)}
+.card-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.12em;text-transform:uppercase;color:var(--slate-500);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+.card.ai .card-eyebrow{color:var(--sun-700)}
+.card-title{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.card-body{font-size:13px;color:var(--slate-700);line-height:1.5}
+.card.ai .card-body{color:var(--ink)}
+
+.badge{display:inline-flex;align-items:center;gap:6px;padding:3px 9px;border-radius:9999px;font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:500;letter-spacing:0.04em;text-transform:uppercase}
+.badge.ok{background:var(--success-bg);color:var(--success-fg)}
+.badge.ai{background:var(--sun-50);color:var(--sun-700);border:1px solid var(--sun-300)}
+.badge.info{background:#DBEAFE;color:var(--brand-700)}
+.badge.neu{background:var(--slate-100);color:var(--slate-700)}
+.badge.coral{background:#FFE8DF;color:var(--coral-700)}
+.dot-pulse{width:7px;height:7px;border-radius:50%;background:var(--success);box-shadow:0 0 0 0 rgba(16,185,129,.55);animation:pulse 2s var(--ease) infinite}
+
+.stat{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--slate-200)}
+.stat:last-child{border-bottom:0}
+.stat .k{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate-500);text-transform:uppercase;letter-spacing:0.08em}
+.stat .v{font-size:14px;font-weight:600;color:var(--ink);font-family:'JetBrains Mono',monospace}
+
+/* Progress strip (below stage) */
+.progress{padding:14px 20px;border-top:1px solid var(--slate-200);background:var(--slate-50);display:flex;align-items:center;gap:14px}
+.progress-bar{flex:1;height:4px;background:var(--slate-200);border-radius:9999px;overflow:hidden;position:relative}
+.progress-fill{height:100%;background:var(--brand-600);border-radius:9999px;width:0;transition:width .3s linear}
+.progress-label{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate-500);letter-spacing:0.06em;min-width:68px;text-align:right}
+.caption{padding:16px 22px;background:var(--slate-50);border-top:1px solid var(--slate-200);font-size:13px;color:var(--slate-700);min-height:52px;display:flex;align-items:center;gap:10px}
+.caption .eyebrow{color:var(--brand-600);flex-shrink:0}
+
+/* Utilities for animated demos */
+.fade-in{opacity:0;transform:translateY(6px);transition:opacity .4s var(--ease),transform .4s var(--ease)}
+.fade-in.show{opacity:1;transform:translateY(0)}
+.typing::after{content:"▎";animation:blink 1s step-end infinite;color:var(--brand-600)}
+@keyframes blink{50%{opacity:0}}
+.spinner{width:14px;height:14px;border-radius:50%;border:2px solid var(--slate-200);border-top-color:var(--brand-600);animation:spin .8s linear infinite;display:inline-block;vertical-align:middle}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Counter */
+.counter{font-family:'JetBrains Mono',monospace;font-size:28px;font-weight:600;color:var(--ink);font-variant-numeric:tabular-nums}
+.counter.brand{color:var(--brand-600)}
+.counter.coral{color:var(--coral-500)}
+.counter.sun{color:var(--sun-700)}
+
+/* Map/gps */
+.map{position:relative;width:100%;height:260px;border-radius:14px;background:linear-gradient(135deg,var(--slate-100) 0%,var(--slate-200) 100%);overflow:hidden;border:1px solid var(--slate-200)}
+.map::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(182,196,211,0.4) 1px,transparent 1px),linear-gradient(90deg,rgba(182,196,211,0.4) 1px,transparent 1px);background-size:24px 24px}
+.pin{position:absolute;transform:translate(-50%,-100%);transition:all 1.8s var(--ease)}
+.pin .body{width:26px;height:26px;border-radius:50% 50% 50% 0;background:var(--brand-600);transform:rotate(-45deg);box-shadow:0 4px 10px rgba(37,99,235,.4);display:flex;align-items:center;justify-content:center}
+.pin .body i{transform:rotate(45deg);color:#fff;font-size:11px;font-weight:700;font-family:'JetBrains Mono',monospace;font-style:normal}
+.pin.destination .body{background:var(--coral-500);box-shadow:0 4px 10px rgba(255,122,89,.4)}
+
+/* Footer */
+footer{margin-top:64px;padding:48px 24px;background:var(--ink);color:var(--paper)}
+footer .inner{max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:24px;flex-wrap:wrap}
+footer .logo{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:700;color:var(--paper)}
+footer .links{display:flex;gap:24px;flex-wrap:wrap}
+footer a{color:var(--slate-300);text-decoration:none;font-size:14px;transition:color .18s var(--ease)}
+footer a:hover{color:var(--paper)}
+footer .meta{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate-400);letter-spacing:0.06em}
+
+/* Message bubbles */
+.msg{max-width:85%;padding:9px 13px;border-radius:14px;font-size:13px;line-height:1.45}
+.msg.in{background:var(--slate-100);color:var(--ink);border-bottom-left-radius:4px;align-self:flex-start}
+.msg.out{background:var(--brand-600);color:var(--paper);border-bottom-right-radius:4px;align-self:flex-end}
+.msg.ai-suggest{background:var(--sun-50);border:1px dashed var(--sun-300);color:var(--ink);align-self:flex-start;max-width:95%}
+.msg-time{font-family:'JetBrains Mono',monospace;font-size:9px;color:var(--slate-400);align-self:flex-end;margin-top:-4px;padding:0 4px}
+
+/* Scanning ring (walkthrough demo) */
+.scan-ring{position:absolute;border:2px solid var(--brand-600);border-radius:50%;opacity:.4;animation:scan 2s var(--ease) infinite;pointer-events:none}
+@keyframes scan{0%{width:0;height:0;opacity:.6}100%{width:220px;height:220px;opacity:0}}
+
+/* Finding pills (appear over image) */
+.finding{position:absolute;padding:5px 10px;background:var(--paper);border:1px solid var(--slate-200);border-radius:9999px;font-size:11px;font-weight:600;color:var(--ink);box-shadow:var(--shadow-md);display:flex;align-items:center;gap:6px;opacity:0;transform:scale(.9);transition:all .4s var(--ease)}
+.finding.show{opacity:1;transform:scale(1)}
+.finding .mark{width:6px;height:6px;border-radius:50%}
+.finding.issue .mark{background:var(--coral-500)}
+.finding.ok .mark{background:var(--success)}
+.finding.warn .mark{background:var(--sun-500)}
+
+/* Step list (iCal preview) */
+.steps{display:flex;gap:8px;margin-bottom:14px}
+.step{flex:1;padding:10px;border-radius:10px;background:var(--slate-100);border:1px solid transparent;text-align:center;transition:all .3s var(--ease);cursor:default}
+.step.active{background:var(--paper);border-color:var(--brand-600);box-shadow:var(--shadow-sm)}
+.step.done{background:var(--success-bg);border-color:var(--success)}
+.step-num{font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:var(--slate-500);margin-bottom:2px}
+.step.active .step-num{color:var(--brand-600)}
+.step.done .step-num{color:var(--success-fg)}
+.step-label{font-size:12px;font-weight:500;color:var(--ink)}
+
+/* QR block */
+.qr{width:80px;height:80px;background:var(--paper);border:2px solid var(--ink);border-radius:8px;padding:6px;display:grid;grid-template-columns:repeat(8,1fr);gap:1px;flex-shrink:0}
+.qr i{background:var(--ink);display:block;border-radius:1px}
+.qr i.off{background:transparent}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="inner">
+    <a href="/" class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="32" height="32" fill="none"><rect width="64" height="64" rx="16" fill="#0B2A3B"/><circle cx="32" cy="32" r="22" fill="none" stroke="#2563EB" stroke-width="1" opacity="0.5"/><path d="M22 30 L 32 22 L 42 30 L 42 40 L 22 40 Z" fill="#FFFFFF"/><rect x="29" y="34" width="6" height="6" fill="#0B2A3B"/><circle cx="32" cy="10" r="3.5" fill="#FFB547"/><circle cx="51" cy="40" r="3" fill="#FF7A59"/><circle cx="13" cy="40" r="3" fill="#6389F7"/></svg>
+      livaround
+    </a>
+    <div class="links">
+      <a href="/#features">Features</a>
+      <a href="/#pricing">Pricing</a>
+      <a href="/about.html">About</a>
+      <a href="https://github.com/mohiteu811-cloud/Livaround" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://livarounddashboard-production.up.railway.app/login" class="cta">Launch app</a>
+    </div>
+  </div>
+</nav>
+
+<header class="page-head">
+  <span class="eyebrow">Product demos · 8 stories</span>
+  <h1>See livaround <em>in motion</em></h1>
+  <p>Short, honest walkthroughs of what the platform actually does — from guest messages to worker dispatch to calendar sync.</p>
+  <div class="head-meta"><span class="dot"></span>All demos are live simulations · no signup required</div>
+</header>
+
+<nav class="index">
+  <a class="chip" href="#d1"><span class="num">01</span> AI guest messaging</a>
+  <a class="chip" href="#d2"><span class="num">02</span> Issue triage</a>
+  <a class="chip" href="#d3"><span class="num">03</span> Multilingual ops</a>
+  <a class="chip" href="#d4"><span class="num">04</span> AI video walkthrough</a>
+  <a class="chip" href="#d5"><span class="num">05</span> Live dispatch</a>
+  <a class="chip" href="#d6"><span class="num">06</span> Ops guide & QR</a>
+  <a class="chip" href="#d7"><span class="num">07</span> Revenue reports</a>
+  <a class="chip" href="#d8"><span class="num">08</span> Airbnb iCal sync</a>
+</nav>
+
+<!-- Demo 1: AI guest messaging -->
+<section class="demo" id="d1">
+  <div class="demo-head">
+    <div class="left">
+      <span class="eyebrow">Demo 01 · AI guest messaging</span>
+      <h2>A guest asks a question. You reply in one tap.</h2>
+      <p>When a guest messages you, livaround drafts a reply in your voice using the property's ops guide. You read, edit if needed, send. Average reply time drops from hours to seconds.</p>
+    </div>
+    <div class="demo-controls">
+      <button class="ctrl primary" onclick="playDemo('d1')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+      <button class="ctrl" onclick="resetDemo('d1')" aria-label="Restart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="stage-body">
+      <div class="stage-left">
+        <div class="browser">
+          <div class="browser-bar">
+            <div class="dots"><span></span><span></span><span></span></div>
+            <div class="url">livaround.com/inbox/movilla</div>
+          </div>
+          <div class="browser-body" id="d1-inbox" style="display:flex;flex-direction:column;gap:10px;min-height:440px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
+              <div class="eyebrow">Inbox · Mo's Villa</div>
+              <span class="badge ok"><span class="dot-pulse"></span>Live</span>
+            </div>
+            <div class="card fade-in" data-d1-step="1">
+              <div class="card-eyebrow">Sarah K · 2 min ago</div>
+              <div class="card-body">Hi! We're landing at 11am — is there any way we could drop our bags earlier? Also, is the villa dog-friendly? 🐕</div>
+            </div>
+            <div class="card ai fade-in" data-d1-step="2" style="margin-left:32px">
+              <div class="card-eyebrow">✦ Drafted reply · claude-sonnet-4-6</div>
+              <div class="card-body"><span id="d1-draft"></span></div>
+              <div style="display:flex;gap:6px;margin-top:10px">
+                <span class="badge ai">tone: warm</span>
+                <span class="badge neu">sources: ops guide</span>
+              </div>
+            </div>
+            <div class="fade-in" data-d1-step="3" style="margin-left:32px;display:flex;gap:8px">
+              <button class="ctrl primary" style="flex:1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 21l21-9L2 3v7l15 2-15 2z"/></svg> Send reply</button>
+              <button class="ctrl" style="width:auto;padding:0 14px;font-size:13px">Edit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-right">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>9:41</span><span class="right"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></span></div>
+            <div class="phone-appbar" style="background:var(--brand-600);color:#fff;border-bottom-color:var(--brand-700)">
+              <div style="width:32px;height:32px;border-radius:50%;background:#fff;color:var(--brand-600);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">MV</div>
+              <div><div class="title" style="color:#fff">Mo's Villa · Goa</div><div class="sub" style="color:#fff;opacity:.75">Check-in in 2h 14m</div></div>
+            </div>
+            <div class="phone-body" id="d1-phone">
+              <div class="msg out fade-in" data-d1-phone-step="1">Hi! We're landing at 11am — is there any way we could drop our bags earlier? Also, is the villa dog-friendly? 🐕</div>
+              <div class="msg-time fade-in" data-d1-phone-step="1">09:41</div>
+              <div class="msg in fade-in" data-d1-phone-step="4" id="d1-reply"></div>
+              <div class="msg-time fade-in" data-d1-phone-step="4">09:41</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><span class="eyebrow">Beat</span><span id="d1-cap">Press play to see a guest message come in.</span></div>
+    <div class="progress"><div class="progress-bar"><div class="progress-fill" id="d1-prog"></div></div><div class="progress-label" id="d1-ptxt">00 / 04</div></div>
+  </div>
+</section>
+
+<!-- Demo 2: Issue triage -->
+<section class="demo" id="d2">
+  <div class="demo-head">
+    <div class="left">
+      <span class="eyebrow">Demo 02 · Issue triage</span>
+      <h2>Guest reports a problem. AI reads the photos, routes the work.</h2>
+      <p>The guest messages "AC isn't cooling" with a photo. livaround classifies it, checks severity, and surfaces a one-tap dispatch to the right worker — already on shift, nearest to the property.</p>
+    </div>
+    <div class="demo-controls">
+      <button class="ctrl primary" onclick="playDemo('d2')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+      <button class="ctrl" onclick="resetDemo('d2')" aria-label="Restart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="stage-body">
+      <div class="stage-left">
+        <div class="browser">
+          <div class="browser-bar"><div class="dots"><span></span><span></span><span></span></div><div class="url">livaround.com/issues/new</div></div>
+          <div class="browser-body" style="display:flex;flex-direction:column;gap:12px;min-height:440px">
+            <div class="eyebrow">Incoming issue</div>
+            <div class="card fade-in" data-d2-step="1">
+              <div class="card-eyebrow"><span class="badge coral">NEW · urgent</span></div>
+              <div class="card-title">Message from guest — Villa Palmira</div>
+              <div class="card-body">"AC in the master bedroom isn't cooling. It's 32° in the room. Baby sleeping now, please help."</div>
+              <div style="margin-top:10px;display:flex;gap:8px">
+                <div style="width:60px;height:44px;background:linear-gradient(135deg,var(--slate-300),var(--slate-400));border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px">photo</div>
+                <div style="width:60px;height:44px;background:linear-gradient(135deg,var(--slate-300),var(--slate-400));border-radius:8px;display:flex;align-items:center;justify-content:center;color:#fff;font-size:10px">photo</div>
+              </div>
+            </div>
+            <div class="card ai fade-in" data-d2-step="2">
+              <div class="card-eyebrow">✦ AI analysis</div>
+              <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+                <div><div class="eyebrow" style="margin-bottom:2px">Category</div><div style="font-weight:600">HVAC · AC unit</div></div>
+                <div><div class="eyebrow" style="margin-bottom:2px">Severity</div><div style="font-weight:600;color:var(--coral-700)">High (infant present)</div></div>
+                <div><div class="eyebrow" style="margin-bottom:2px">Est. time</div><div style="font-weight:600">30–45 min</div></div>
+                <div><div class="eyebrow" style="margin-bottom:2px">Best match</div><div style="font-weight:600">Ravi — 1.2km away</div></div>
+              </div>
+            </div>
+            <div class="card fade-in" data-d2-step="3" style="background:var(--slate-50)">
+              <div class="card-eyebrow">Suggested action</div>
+              <div style="display:flex;align-items:center;gap:10px;margin-top:4px">
+                <button class="ctrl primary" style="flex:1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Dispatch Ravi now</button>
+                <button class="ctrl" style="width:auto;padding:0 12px;font-size:12px">Reassign</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-right">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>9:41</span><span class="right"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></span></div>
+            <div class="phone-appbar"><div style="width:32px;height:32px;border-radius:50%;background:var(--coral-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">RK</div><div><div class="title">Ravi Kumar</div><div class="sub">Maintenance · on shift</div></div></div>
+            <div class="phone-body">
+              <div class="card fade-in" data-d2-phone-step="4" style="border-color:var(--coral-500);background:#FFF5F2">
+                <div class="card-eyebrow" style="color:var(--coral-700)">🔔 New job · urgent</div>
+                <div class="card-title">AC repair — Villa Palmira</div>
+                <div class="card-body">Master bedroom AC not cooling. Infant present. ETA 15 min drive.</div>
+                <div style="margin-top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--slate-500)">Anjuna, North Goa · 1.2 km</div>
+              </div>
+              <div class="fade-in" data-d2-phone-step="5" style="display:flex;gap:6px;margin-top:4px">
+                <button class="ctrl primary" style="flex:1;padding:10px">Accept</button>
+                <button class="ctrl" style="width:auto;padding:0 14px">Decline</button>
+              </div>
+              <div class="fade-in" data-d2-phone-step="6" style="margin-top:auto;padding:10px;background:var(--success-bg);border-radius:10px;color:var(--success-fg);font-size:12px;font-weight:600;text-align:center">✓ Accepted · en route</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><span class="eyebrow">Beat</span><span id="d2-cap">Press play — guest reports an AC issue.</span></div>
+    <div class="progress"><div class="progress-bar"><div class="progress-fill" id="d2-prog"></div></div><div class="progress-label" id="d2-ptxt">00 / 06</div></div>
+  </div>
+</section>
+
+<!-- Demo 3: Multilingual -->
+<section class="demo" id="d3">
+  <div class="demo-head">
+    <div class="left">
+      <span class="eyebrow">Demo 03 · Multilingual ops</span>
+      <h2>You write in English. Your worker reads Hindi.</h2>
+      <p>Your housekeeper doesn't need to know English. livaround translates every instruction, checklist, and ops note into their language in real time — and translates their replies back to yours.</p>
+    </div>
+    <div class="demo-controls">
+      <button class="ctrl primary" onclick="playDemo('d3')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+      <button class="ctrl" onclick="resetDemo('d3')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="stage-body">
+      <div class="stage-left">
+        <div class="browser">
+          <div class="browser-bar"><div class="dots"><span></span><span></span><span></span></div><div class="url">livaround.com/chat/priya</div></div>
+          <div class="browser-body" style="display:flex;flex-direction:column;gap:10px;min-height:440px">
+            <div style="display:flex;justify-content:space-between;align-items:center">
+              <div class="eyebrow">Chat · Priya (Housekeeper)</div>
+              <span class="badge ai">✦ Auto-translate · en ↔ hi</span>
+            </div>
+            <div class="msg out fade-in" data-d3-step="1">Priya, please make sure the pool towels are washed today. We have guests checking in at 4pm.</div>
+            <div class="msg-time fade-in" data-d3-step="1">10:12 · sent in English</div>
+            <div class="msg in fade-in" data-d3-step="3" style="background:var(--slate-100)">
+              <div style="font-family:'Noto Sans Devanagari','DM Sans',sans-serif">जी हाँ सर, मैं अभी धो रही हूँ। 4 बजे तक सब कुछ तैयार हो जाएगा।</div>
+              <div style="margin-top:6px;padding-top:6px;border-top:1px dashed var(--slate-300);font-size:12px;color:var(--slate-500);font-style:italic">Translated: Yes sir, I'm washing them now. Everything will be ready by 4pm.</div>
+            </div>
+            <div class="msg-time fade-in" data-d3-step="3">10:13</div>
+            <div class="card ai fade-in" data-d3-step="5">
+              <div class="card-eyebrow">✦ Smart reminders</div>
+              <div class="card-body">Sent Priya the check-in checklist in Hindi — 12 items, voice-playable.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-right">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>10:12</span><span class="right"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></span></div>
+            <div class="phone-appbar"><div style="width:32px;height:32px;border-radius:50%;background:var(--sun-500);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">P</div><div><div class="title">Priya</div><div class="sub">hi-IN · हिन्दी</div></div></div>
+            <div class="phone-body">
+              <div class="msg in fade-in" data-d3-phone-step="2" style="font-family:'Noto Sans Devanagari','DM Sans',sans-serif">प्रिया, कृपया आज पूल तौलिए धो लीजिये। 4 बजे मेहमान आ रहे हैं।</div>
+              <div class="msg-time fade-in" data-d3-phone-step="2">10:12</div>
+              <div class="msg out fade-in" data-d3-phone-step="4" style="font-family:'Noto Sans Devanagari','DM Sans',sans-serif">जी हाँ सर, मैं अभी धो रही हूँ। 4 बजे तक सब कुछ तैयार हो जाएगा।</div>
+              <div class="msg-time fade-in" data-d3-phone-step="4">10:13</div>
+              <div class="card ai fade-in" data-d3-phone-step="6" style="margin-top:6px">
+                <div class="card-eyebrow">नया चेकलिस्ट</div>
+                <div class="card-title" style="font-family:'Noto Sans Devanagari','DM Sans',sans-serif">चेक-इन चेकलिस्ट · 12 आइटम</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><span class="eyebrow">Beat</span><span id="d3-cap">Press play — send a message in English, see it arrive in Hindi.</span></div>
+    <div class="progress"><div class="progress-bar"><div class="progress-fill" id="d3-prog"></div></div><div class="progress-label" id="d3-ptxt">00 / 06</div></div>
+  </div>
+</section>
+
+<!-- Demo 4: AI video walkthrough -->
+<section class="demo" id="d4">
+  <div class="demo-head">
+    <div class="left">
+      <span class="eyebrow">Demo 04 · AI video walkthrough</span>
+      <h2>Worker films the clean. AI watches every frame.</h2>
+      <p>After each turnover, your cleaner records a 2-minute walkthrough. Gemini 2.5 Flash reviews it and flags anything that needs attention — broken tiles, missing items, unmade corners — before the next guest arrives.</p>
+    </div>
+    <div class="demo-controls">
+      <button class="ctrl primary" onclick="playDemo('d4')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+      <button class="ctrl" onclick="resetDemo('d4')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="stage-body">
+      <div class="stage-left">
+        <div class="browser">
+          <div class="browser-bar"><div class="dots"><span></span><span></span><span></span></div><div class="url">livaround.com/walkthroughs/w-8821</div></div>
+          <div class="browser-body" style="min-height:440px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div class="eyebrow">Walkthrough · Villa Palmira · 14:32</div>
+              <span class="badge ai" id="d4-badge"><span class="spinner"></span>Analysing frame 0 / 1,842</span>
+            </div>
+            <div style="position:relative;border-radius:12px;overflow:hidden;background:linear-gradient(135deg,#5a7a8e,#32547A);aspect-ratio:16/10">
+              <div style="position:absolute;inset:0;background-image:radial-gradient(circle at 30% 40%,rgba(255,255,255,.15) 0,transparent 40%),radial-gradient(circle at 70% 60%,rgba(255,255,255,.1) 0,transparent 40%)"></div>
+              <div id="d4-scan" style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%)"></div>
+              <div class="finding issue" id="d4-f1" style="top:24%;left:18%"><span class="mark"></span>Tile chipped · bathroom</div>
+              <div class="finding warn" id="d4-f2" style="top:58%;left:62%"><span class="mark"></span>Towel missing · master</div>
+              <div class="finding ok" id="d4-f3" style="top:30%;right:14%"><span class="mark"></span>Beds ok</div>
+              <div class="finding issue" id="d4-f4" style="bottom:18%;left:30%"><span class="mark"></span>Floor stain · kitchen</div>
+              <div style="position:absolute;bottom:10px;right:12px;padding:4px 10px;background:rgba(11,42,59,0.8);color:#fff;border-radius:9999px;font-family:'JetBrains Mono',monospace;font-size:10px">●REC 02:14</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px">
+              <div class="card" style="padding:12px"><div class="card-eyebrow">Issues</div><div class="counter coral" id="d4-issues">0</div></div>
+              <div class="card" style="padding:12px"><div class="card-eyebrow">Warnings</div><div class="counter sun" id="d4-warns">0</div></div>
+              <div class="card" style="padding:12px"><div class="card-eyebrow">Confirmed ok</div><div class="counter" style="color:var(--success-fg)" id="d4-oks">0</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-right">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>14:32</span><span class="right"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></span></div>
+            <div class="phone-appbar"><div style="width:32px;height:32px;border-radius:50%;background:var(--brand-600);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">M</div><div><div class="title">Manuel · cleaner</div><div class="sub">uploading walkthrough…</div></div></div>
+            <div class="phone-body">
+              <div class="card fade-in" data-d4-phone-step="1">
+                <div class="card-eyebrow">Upload · 02:14 video</div>
+                <div style="height:6px;background:var(--slate-200);border-radius:9999px;overflow:hidden;margin-top:6px"><div id="d4-upload" style="height:100%;width:0;background:var(--brand-600);transition:width 1.5s linear"></div></div>
+                <div style="margin-top:6px;display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--slate-500)"><span id="d4-upload-pct">0%</span><span>186 MB</span></div>
+              </div>
+              <div class="card ai fade-in" data-d4-phone-step="3">
+                <div class="card-eyebrow">✦ AI summary · ready</div>
+                <div class="card-body"><b>2 issues flagged.</b> AC unit fine, beds made. Chipped bathroom tile needs attention before next check-in.</div>
+              </div>
+              <div class="fade-in" data-d4-phone-step="4" style="display:flex;gap:6px">
+                <button class="ctrl primary" style="flex:1;padding:10px">Create jobs</button>
+                <button class="ctrl" style="width:auto;padding:0 14px">Review</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><span class="eyebrow">Beat</span><span id="d4-cap">Press play — AI reviews a 2-minute walkthrough and surfaces findings.</span></div>
+    <div class="progress"><div class="progress-bar"><div class="progress-fill" id="d4-prog"></div></div><div class="progress-label" id="d4-ptxt">00 / 06</div></div>
+  </div>
+</section>
+
+<!-- Demo 5: Live GPS dispatch -->
+<section class="demo" id="d5">
+  <div class="demo-head">
+    <div class="left">
+      <span class="eyebrow">Demo 05 · Live dispatch</span>
+      <h2>See every worker on a map. Dispatch the closest one.</h2>
+      <p>Live GPS for your on-shift team. You see who's where, ETA to any property, and can re-route in one tap. No more "where are you?" WhatsApp threads.</p>
+    </div>
+    <div class="demo-controls">
+      <button class="ctrl primary" onclick="playDemo('d5')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+      <button class="ctrl" onclick="resetDemo('d5')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="stage-body">
+      <div class="stage-left">
+        <div class="browser">
+          <div class="browser-bar"><div class="dots"><span></span><span></span><span></span></div><div class="url">livaround.com/dispatch</div></div>
+          <div class="browser-body" style="min-height:440px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div class="eyebrow">Team on shift · 4 workers</div>
+              <span class="badge ok"><span class="dot-pulse"></span>GPS live</span>
+            </div>
+            <div class="map" id="d5-map">
+              <div class="pin destination" style="top:30%;left:70%"><div class="body"><i>★</i></div></div>
+              <div class="pin" id="d5-p1" style="top:75%;left:20%"><div class="body"><i>R</i></div></div>
+              <div class="pin" id="d5-p2" style="top:20%;left:35%"><div class="body"><i>P</i></div></div>
+              <div class="pin" id="d5-p3" style="top:55%;left:80%"><div class="body"><i>M</i></div></div>
+              <div class="pin" id="d5-p4" style="top:40%;left:15%"><div class="body"><i>A</i></div></div>
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px">
+              <div class="card" style="padding:12px" id="d5-dispatch-card">
+                <div class="card-eyebrow">✦ Suggested dispatch</div>
+                <div class="card-title">Manuel — 0.8km away</div>
+                <div class="card-body">ETA 6 min · currently idle</div>
+                <button class="ctrl primary" style="width:100%;padding:8px;margin-top:8px;font-size:12px">Dispatch Manuel</button>
+              </div>
+              <div class="card" style="padding:12px">
+                <div class="stat"><span class="k">Avg ETA</span><span class="v">8m</span></div>
+                <div class="stat"><span class="k">On shift</span><span class="v">4/6</span></div>
+                <div class="stat"><span class="k">Jobs today</span><span class="v">12</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-right">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>11:08</span><span class="right"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></span></div>
+            <div class="phone-appbar"><div style="width:32px;height:32px;border-radius:50%;background:var(--coral-500);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">M</div><div><div class="title">Manuel</div><div class="sub">worker · on shift</div></div></div>
+            <div class="phone-body">
+              <div class="card fade-in" data-d5-phone-step="2" style="border-color:var(--brand-600)">
+                <div class="card-eyebrow" style="color:var(--brand-600)">🔔 New job · 0.8km</div>
+                <div class="card-title">Turn-over — Villa Mar</div>
+                <div class="card-body">Previous guests checked out 11:00. Next check-in 16:00.</div>
+              </div>
+              <div class="fade-in" data-d5-phone-step="3" style="display:flex;gap:6px">
+                <button class="ctrl primary" style="flex:1;padding:10px">Accept</button>
+                <button class="ctrl" style="width:auto;padding:0 14px">Later</button>
+              </div>
+              <div class="card fade-in" data-d5-phone-step="5" style="margin-top:auto;background:var(--success-bg);border-color:var(--success)">
+                <div class="card-eyebrow" style="color:var(--success-fg)">✓ En route</div>
+                <div class="card-title">ETA 6 min</div>
+                <div class="card-body">Navigation opened in Maps.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><span class="eyebrow">Beat</span><span id="d5-cap">Press play — watch a worker get dispatched and move on the map.</span></div>
+    <div class="progress"><div class="progress-bar"><div class="progress-fill" id="d5-prog"></div></div><div class="progress-label" id="d5-ptxt">00 / 05</div></div>
+  </div>
+</section>
+
+<!-- Demo 6: Ops guide & QR -->
+<section class="demo" id="d6">
+  <div class="demo-head">
+    <div class="left">
+      <span class="eyebrow">Demo 06 · Ops guide & QR</span>
+      <h2>Every property, every detail — one place, one scan.</h2>
+      <p>Wi-fi passwords, appliance manuals, "which switch does what", checkout steps. Stick a QR code on the fridge. Guests scan, workers scan — no more late-night support calls.</p>
+    </div>
+    <div class="demo-controls">
+      <button class="ctrl primary" onclick="playDemo('d6')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+      <button class="ctrl" onclick="resetDemo('d6')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="stage-body">
+      <div class="stage-left">
+        <div class="browser">
+          <div class="browser-bar"><div class="dots"><span></span><span></span><span></span></div><div class="url">livaround.com/properties/movilla/guide</div></div>
+          <div class="browser-body" style="min-height:440px">
+            <div class="eyebrow" style="margin-bottom:10px">Ops guide · Mo's Villa</div>
+            <div style="display:grid;grid-template-columns:1fr 100px;gap:14px;align-items:start">
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <div class="card fade-in" data-d6-step="1" style="padding:12px"><div class="card-eyebrow">wifi</div><div class="card-title">movilla-5G</div><div class="mono" style="font-size:12px;color:var(--slate-500)">password: sunset2024</div></div>
+                <div class="card fade-in" data-d6-step="2" style="padding:12px"><div class="card-eyebrow">check-out · 11am</div><div class="card-body">Leave keys in the lockbox · garbage to the back gate bin</div></div>
+                <div class="card fade-in" data-d6-step="3" style="padding:12px"><div class="card-eyebrow">ac remote</div><div class="card-body">Mode → Cool · Temp 22° · Swing off</div></div>
+                <div class="card fade-in" data-d6-step="4" style="padding:12px"><div class="card-eyebrow">pool</div><div class="card-body">Filter runs 6am–10am · no chemicals needed between services</div></div>
+              </div>
+              <div class="fade-in" data-d6-step="5" style="display:flex;flex-direction:column;align-items:center;gap:6px">
+                <div class="qr" aria-hidden="true">
+                  <!-- tiny pseudo QR using cells -->
+                  <!-- 8x8 = 64 cells -->
+                  <i></i><i></i><i></i><i class="off"></i><i></i><i class="off"></i><i></i><i></i>
+                  <i></i><i class="off"></i><i></i><i></i><i class="off"></i><i></i><i class="off"></i><i></i>
+                  <i></i><i></i><i class="off"></i><i></i><i></i><i class="off"></i><i></i><i></i>
+                  <i class="off"></i><i></i><i></i><i class="off"></i><i></i><i></i><i></i><i class="off"></i>
+                  <i></i><i class="off"></i><i></i><i></i><i class="off"></i><i></i><i class="off"></i><i></i>
+                  <i></i><i></i><i class="off"></i><i></i><i></i><i></i><i></i><i class="off"></i>
+                  <i></i><i class="off"></i><i></i><i class="off"></i><i></i><i class="off"></i><i></i><i></i>
+                  <i></i><i></i><i></i><i></i><i class="off"></i><i></i><i></i><i></i>
+                </div>
+                <div class="mono" style="font-size:10px;color:var(--slate-500);text-align:center">scan for guide</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-right">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>7:42</span><span class="right"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></span></div>
+            <div class="phone-appbar"><div style="width:32px;height:32px;border-radius:50%;background:var(--sun-500);color:var(--ink);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px">S</div><div><div class="title">Sarah · guest</div><div class="sub">scanned fridge QR</div></div></div>
+            <div class="phone-body">
+              <div class="fade-in" data-d6-phone-step="6" style="text-align:center;padding:6px 0"><div class="eyebrow" style="color:var(--brand-600)">welcome to mo's villa</div></div>
+              <div class="card fade-in" data-d6-phone-step="7"><div class="card-eyebrow">📶 wi-fi</div><div class="card-title">movilla-5G</div><div class="card-body mono" style="font-size:12px">sunset2024 <span style="color:var(--brand-600);cursor:pointer">· tap to copy</span></div></div>
+              <div class="card fade-in" data-d6-phone-step="8"><div class="card-eyebrow">🏊 pool hours</div><div class="card-body">Open 6am – 10pm · towels in cabana</div></div>
+              <div class="card fade-in" data-d6-phone-step="9"><div class="card-eyebrow">📞 host</div><div class="card-body">Tap to message Mohit in your language</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><span class="eyebrow">Beat</span><span id="d6-cap">Press play — see a property guide come together and land on a guest phone.</span></div>
+    <div class="progress"><div class="progress-bar"><div class="progress-fill" id="d6-prog"></div></div><div class="progress-label" id="d6-ptxt">00 / 09</div></div>
+  </div>
+</section>
+
+<!-- Demo 7: Revenue reports -->
+<section class="demo" id="d7">
+  <div class="demo-head">
+    <div class="left">
+      <span class="eyebrow">Demo 07 · Revenue reports</span>
+      <h2>Numbers that actually tell you something.</h2>
+      <p>Revenue, occupancy, cost per stay, worker payroll — calculated from the real events in your account. No spreadsheets, no month-end stress, no guessing what's profitable.</p>
+    </div>
+    <div class="demo-controls">
+      <button class="ctrl primary" onclick="playDemo('d7')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+      <button class="ctrl" onclick="resetDemo('d7')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="stage-body">
+      <div class="stage-left">
+        <div class="browser">
+          <div class="browser-bar"><div class="dots"><span></span><span></span><span></span></div><div class="url">livaround.com/reports/november-2025</div></div>
+          <div class="browser-body" style="min-height:440px">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+              <div class="eyebrow">November 2025 · 3 properties</div>
+              <span class="badge info">preview</span>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px">
+              <div class="card" style="padding:14px"><div class="card-eyebrow">revenue</div><div class="counter brand" id="d7-rev">0</div><div class="mono" style="font-size:10px;color:var(--slate-500);margin-top:2px">+23% vs Oct</div></div>
+              <div class="card" style="padding:14px"><div class="card-eyebrow">occupancy</div><div class="counter" id="d7-occ">0%</div><div class="mono" style="font-size:10px;color:var(--slate-500);margin-top:2px">27 / 30 nights</div></div>
+              <div class="card" style="padding:14px"><div class="card-eyebrow">avg stay</div><div class="counter sun" id="d7-stay">0</div><div class="mono" style="font-size:10px;color:var(--slate-500);margin-top:2px">nights per booking</div></div>
+            </div>
+            <div class="card fade-in" data-d7-step="3" style="margin-top:12px;padding:14px">
+              <div class="card-eyebrow">Per-property breakdown</div>
+              <div style="margin-top:8px;display:flex;flex-direction:column;gap:6px" id="d7-bars">
+                <div style="display:flex;align-items:center;gap:10px"><div style="width:80px;font-size:12px;color:var(--slate-700)">Mo's Villa</div><div style="flex:1;height:8px;background:var(--slate-100);border-radius:9999px;overflow:hidden"><div data-bar style="height:100%;width:0;background:var(--brand-600);transition:width 1s var(--ease)" data-target="88%"></div></div><div class="mono" style="font-size:11px;color:var(--slate-700);width:64px;text-align:right">₹1,82,000</div></div>
+                <div style="display:flex;align-items:center;gap:10px"><div style="width:80px;font-size:12px;color:var(--slate-700)">Villa Palmira</div><div style="flex:1;height:8px;background:var(--slate-100);border-radius:9999px;overflow:hidden"><div data-bar style="height:100%;width:0;background:var(--sun-500);transition:width 1s var(--ease) .15s" data-target="64%"></div></div><div class="mono" style="font-size:11px;color:var(--slate-700);width:64px;text-align:right">₹1,32,500</div></div>
+                <div style="display:flex;align-items:center;gap:10px"><div style="width:80px;font-size:12px;color:var(--slate-700)">Villa Mar</div><div style="flex:1;height:8px;background:var(--slate-100);border-radius:9999px;overflow:hidden"><div data-bar style="height:100%;width:0;background:var(--coral-500);transition:width 1s var(--ease) .3s" data-target="42%"></div></div><div class="mono" style="font-size:11px;color:var(--slate-700);width:64px;text-align:right">₹87,000</div></div>
+              </div>
+            </div>
+            <div class="card ai fade-in" data-d7-step="4" style="margin-top:10px">
+              <div class="card-eyebrow">✦ Insight</div>
+              <div class="card-body">Mo's Villa ran 4 extra nights vs last month. Villa Mar has 2 open weekend slots — consider a small price drop to fill.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-right">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>9:00</span><span class="right"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></span></div>
+            <div class="phone-appbar"><div style="width:32px;height:32px;border-radius:50%;background:var(--brand-600);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">📊</div><div><div class="title">Monthly report</div><div class="sub">ready to export</div></div></div>
+            <div class="phone-body">
+              <div class="card fade-in" data-d7-phone-step="1">
+                <div class="card-eyebrow">take-home</div>
+                <div class="counter brand" style="font-size:22px" id="d7-take">0</div>
+                <div class="mono" style="font-size:10px;color:var(--slate-500);margin-top:2px">after worker payouts & fees</div>
+              </div>
+              <div class="card fade-in" data-d7-phone-step="2">
+                <div class="stat"><span class="k">Worker payroll</span><span class="v">₹58,400</span></div>
+                <div class="stat"><span class="k">Platform fees</span><span class="v">₹12,800</span></div>
+                <div class="stat"><span class="k">Utilities</span><span class="v">₹9,200</span></div>
+              </div>
+              <div class="fade-in" data-d7-phone-step="4" style="margin-top:auto;display:flex;gap:6px">
+                <button class="ctrl primary" style="flex:1;padding:10px">Export PDF</button>
+                <button class="ctrl" style="width:auto;padding:0 14px">Share</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><span class="eyebrow">Beat</span><span id="d7-cap">Press play — counters animate up, breakdown bars fill, AI adds an insight.</span></div>
+    <div class="progress"><div class="progress-bar"><div class="progress-fill" id="d7-prog"></div></div><div class="progress-label" id="d7-ptxt">00 / 04</div></div>
+  </div>
+</section>
+
+<!-- Demo 8: Airbnb iCal sync (NEW) -->
+<section class="demo" id="d8">
+  <div class="demo-head">
+    <div class="left">
+      <span class="eyebrow">Demo 08 · Airbnb iCal sync · new</span>
+      <h2>From Airbnb iCal URL to auto-dispatched cleaning crew. Under two minutes.</h2>
+      <p>Paste your Airbnb calendar link. livaround previews every upcoming booking before anything imports, then keeps it in sync every 2 hours — and creates turn-over jobs automatically.</p>
+    </div>
+    <div class="demo-controls">
+      <button class="ctrl primary" onclick="playDemo('d8')"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Play</button>
+      <button class="ctrl" onclick="resetDemo('d8')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg></button>
+    </div>
+  </div>
+  <div class="stage">
+    <div class="stage-body">
+      <div class="stage-left">
+        <div class="browser">
+          <div class="browser-bar"><div class="dots"><span></span><span></span><span></span></div><div class="url">livaround.com/properties/movilla/channels</div></div>
+          <div class="browser-body" style="min-height:480px">
+            <div class="steps">
+              <div class="step" id="d8-s1"><div class="step-num">01</div><div class="step-label">Paste URL</div></div>
+              <div class="step" id="d8-s2"><div class="step-num">02</div><div class="step-label">Preview</div></div>
+              <div class="step" id="d8-s3"><div class="step-num">03</div><div class="step-label">Live sync</div></div>
+            </div>
+
+            <!-- Phase 1: URL input -->
+            <div id="d8-phase1">
+              <div class="eyebrow" style="margin-bottom:8px">Airbnb iCal url</div>
+              <div style="display:flex;gap:8px">
+                <input id="d8-url" readonly value="" placeholder="https://www.airbnb.com/calendar/ical/..." style="flex:1;padding:11px 14px;border:1px solid var(--slate-300);border-radius:10px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--ink);background:var(--paper)">
+                <button class="ctrl primary" id="d8-connect" style="padding:0 18px">Connect</button>
+              </div>
+              <div class="mono" style="font-size:11px;color:var(--slate-500);margin-top:8px">💡 Find it in Airbnb → Calendar → Availability → Export calendar</div>
+            </div>
+
+            <!-- Phase 2: Preview -->
+            <div id="d8-phase2" style="display:none">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+                <div class="eyebrow">Preview · <span id="d8-prev-count">7</span> events found</div>
+                <span class="badge ai">not imported yet</span>
+              </div>
+              <div class="card" style="padding:0;overflow:hidden">
+                <div id="d8-prev-list" style="max-height:260px;overflow:auto">
+                  <!-- filled by JS -->
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;margin-top:12px">
+                <button class="ctrl primary" id="d8-save" style="flex:1"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Save & enable sync</button>
+                <button class="ctrl" style="width:auto;padding:0 14px">Cancel</button>
+              </div>
+            </div>
+
+            <!-- Phase 3: Live sync -->
+            <div id="d8-phase3" style="display:none">
+              <div class="card" style="background:var(--ink);color:var(--paper);border-color:var(--ink);padding:18px">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+                  <div style="display:flex;align-items:center;gap:10px"><span class="dot-pulse"></span><div style="font-weight:600">Airbnb sync · active</div></div>
+                  <button class="ctrl" style="background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.15);color:#fff;width:auto;padding:0 12px;font-size:12px">↻ Resync now</button>
+                </div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+                  <div><div class="mono" style="font-size:10px;color:var(--slate-400);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px">Last synced</div><div class="mono" style="font-size:14px">just now</div></div>
+                  <div><div class="mono" style="font-size:10px;color:var(--slate-400);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px">Next sync</div><div class="mono" style="font-size:14px">in 2h 00m</div></div>
+                  <div><div class="mono" style="font-size:10px;color:var(--slate-400);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:4px">Imported</div><div class="mono" style="font-size:14px;color:var(--success)" id="d8-imp">0</div></div>
+                </div>
+              </div>
+              <div class="card ai fade-in" data-d8-step="8" style="margin-top:10px">
+                <div class="card-eyebrow">✦ Auto-created · 5 turnover jobs</div>
+                <div class="card-body">Every reservation ends → a cleaning job is queued with the right worker and check-out time. You don't have to do anything.</div>
+              </div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px">
+                <div class="card" style="padding:10px"><div class="card-eyebrow">Reservations</div><div class="mono" style="font-size:18px;font-weight:600;color:var(--ink)">5</div></div>
+                <div class="card" style="padding:10px"><div class="card-eyebrow">Host blocks</div><div class="mono" style="font-size:18px;font-weight:600;color:var(--ink)">2</div></div>
+                <div class="card" style="padding:10px"><div class="card-eyebrow">Conflicts</div><div class="mono" style="font-size:18px;font-weight:600;color:var(--success-fg)">0</div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="stage-right">
+        <div class="phone">
+          <div class="phone-screen">
+            <div class="phone-statusbar"><span>16:20</span><span class="right"><span class="bars"><i></i><i></i><i></i><i></i></span><span class="batt"><i></i></span></span></div>
+            <div class="phone-appbar" style="background:var(--ink);color:#fff;border-bottom-color:var(--ink)"><div style="width:32px;height:32px;border-radius:8px;background:#FF5A5F;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px">Ab</div><div><div class="title" style="color:#fff">Airbnb calendar</div><div class="sub" style="color:#fff;opacity:.7">Mo's Villa · live sync</div></div></div>
+            <div class="phone-body">
+              <div class="fade-in" data-d8-phone-step="6" id="d8-phone-pre" style="display:flex;flex-direction:column;gap:8px;flex:1;justify-content:center;align-items:center;text-align:center;padding:20px 12px">
+                <div style="width:56px;height:56px;border-radius:50%;background:var(--slate-100);display:flex;align-items:center;justify-content:center;color:var(--slate-500)"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zM16 2v4M8 2v4M3 10h18"/></svg></div>
+                <div style="font-weight:600;font-size:14px;color:var(--ink)">Not connected yet</div>
+                <div style="font-size:12px;color:var(--slate-500);max-width:220px">Connect your Airbnb calendar to pull bookings automatically.</div>
+              </div>
+              <div class="fade-in" data-d8-phone-step="7" id="d8-phone-post" style="display:none;flex-direction:column;gap:10px;flex:1">
+                <div style="background:var(--success-bg);border:1px solid var(--success);border-radius:12px;padding:12px;text-align:center">
+                  <div style="color:var(--success-fg);font-weight:600;font-size:13px">✓ Synced · just now</div>
+                  <div class="mono" style="font-size:10px;color:var(--success-fg);opacity:.8;margin-top:2px">next sync in 2h 00m</div>
+                </div>
+                <div class="eyebrow">Upcoming</div>
+                <div class="card" style="padding:12px">
+                  <div class="card-eyebrow"><span class="badge info">reservation</span></div>
+                  <div class="card-title" style="margin-top:6px">Sarah K · Jul 18 – 22</div>
+                  <div class="card-body mono" style="font-size:11px">4 nights · check-in 15:00</div>
+                </div>
+                <div class="card" style="padding:12px">
+                  <div class="card-eyebrow"><span class="badge neu">host block</span></div>
+                  <div class="card-title" style="margin-top:6px">Personal stay · Jul 26 – 28</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="caption"><span class="eyebrow">Beat</span><span id="d8-cap">Press play — paste an iCal URL, preview events, enable sync.</span></div>
+    <div class="progress"><div class="progress-bar"><div class="progress-fill" id="d8-prog"></div></div><div class="progress-label" id="d8-ptxt">00 / 08</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="inner">
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="30" height="30" fill="none"><rect width="64" height="64" rx="16" fill="#1E4FBF"/><circle cx="32" cy="32" r="22" fill="none" stroke="#6389F7" stroke-width="1" opacity="0.5"/><path d="M22 30 L 32 22 L 42 30 L 42 40 L 22 40 Z" fill="#FFFFFF"/><rect x="29" y="34" width="6" height="6" fill="#1E4FBF"/><circle cx="32" cy="10" r="3.5" fill="#FFB547"/><circle cx="51" cy="40" r="3" fill="#FF7A59"/><circle cx="13" cy="40" r="3" fill="#6389F7"/></svg>
+      livaround
+    </div>
+    <div class="links">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/privacy.html">Privacy</a>
+      <a href="https://github.com/mohiteu811-cloud/Livaround" target="_blank" rel="noopener">GitHub</a>
+      <a href="mailto:mohit@livaround.com">mohit@livaround.com</a>
+    </div>
+    <div class="meta">LIVAROUND LTD · England & Wales · 15610194</div>
+  </div>
+</footer>
+
+<script>
+// Generic demo runner ------------------------------------------------------
+const running = {}; // track per-demo state
+
+function setCap(id, txt){const el = document.getElementById(id+'-cap'); if(el) el.textContent = txt;}
+function setProg(id, pct, cur, total){
+  const bar = document.getElementById(id+'-prog');
+  const txt = document.getElementById(id+'-ptxt');
+  if(bar) bar.style.width = pct + '%';
+  if(txt) txt.textContent = String(cur).padStart(2,'0') + ' / ' + String(total).padStart(2,'0');
+}
+function showSteps(id, upTo, attrPrefix){
+  document.querySelectorAll('['+attrPrefix+'-step]').forEach(el => {
+    const step = parseInt(el.getAttribute(attrPrefix+'-step'));
+    if(step <= upTo) el.classList.add('show'); else el.classList.remove('show');
+  });
+  document.querySelectorAll('['+attrPrefix+'-phone-step]').forEach(el => {
+    const step = parseInt(el.getAttribute(attrPrefix+'-phone-step'));
+    if(step <= upTo) el.classList.add('show'); else el.classList.remove('show');
+  });
+}
+
+function resetCommon(id, totalSteps){
+  if(running[id] && running[id].timeouts){ running[id].timeouts.forEach(t=>clearTimeout(t)); }
+  running[id] = {timeouts:[], step:0};
+  document.querySelectorAll('[data-'+id+'-step]').forEach(el=>el.classList.remove('show'));
+  document.querySelectorAll('[data-'+id+'-phone-step]').forEach(el=>el.classList.remove('show'));
+  setProg(id, 0, 0, totalSteps);
+}
+
+// Typewriter helper
+function typeText(el, text, speed=22, done){
+  let i = 0;
+  el.classList.add('typing');
+  el.textContent = '';
+  function tick(){
+    if(i < text.length){
+      el.textContent += text[i++];
+      setTimeout(tick, speed);
+    } else {
+      el.classList.remove('typing');
+      if(done) done();
+    }
+  }
+  tick();
+}
+
+function counterTo(el, target, duration=1200, prefix='', suffix=''){
+  const start = performance.now();
+  function frame(now){
+    const p = Math.min(1, (now-start)/duration);
+    const eased = 1 - Math.pow(1-p, 3);
+    const val = Math.round(target * eased);
+    el.textContent = prefix + val.toLocaleString('en-IN') + suffix;
+    if(p < 1) requestAnimationFrame(frame);
+  }
+  requestAnimationFrame(frame);
+}
+
+// =========================================================================
+// DEMO 1: AI guest messaging (4 beats)
+// =========================================================================
+const D1_DRAFT = "Hi Sarah! We can definitely store your bags from 11am — just ring the bell at the gate and our caretaker Ravi will keep them safe. And yes, Mo's Villa is dog-friendly 🐾 your pup is very welcome. See you soon!";
+function runD1(){
+  const total = 4;
+  resetCommon('d1', total);
+  const caps = [
+    "Guest message arrives.",
+    "livaround drafts a reply using your ops guide.",
+    "You review the draft.",
+    "Sent — guest sees it instantly."
+  ];
+  const schedule = [
+    [0, ()=>{ showSteps('d1', 1, 'data-d1'); setCap('d1', caps[0]); setProg('d1', 25, 1, total); }],
+    [900, ()=>{ showSteps('d1', 2, 'data-d1'); setCap('d1', caps[1]); setProg('d1', 50, 2, total);
+      typeText(document.getElementById('d1-draft'), D1_DRAFT, 18); }],
+    [6500, ()=>{ showSteps('d1', 3, 'data-d1'); setCap('d1', caps[2]); setProg('d1', 75, 3, total); }],
+    [8500, ()=>{ setCap('d1', caps[3]); setProg('d1', 100, 4, total);
+      document.getElementById('d1-reply').textContent = D1_DRAFT;
+      document.querySelectorAll('[data-d1-phone-step="4"]').forEach(e=>e.classList.add('show'));
+    }]
+  ];
+  schedule.forEach(([d,fn])=>running.d1.timeouts.push(setTimeout(fn,d)));
+}
+
+// =========================================================================
+// DEMO 2: Issue triage (6 beats)
+// =========================================================================
+function runD2(){
+  const total = 6;
+  resetCommon('d2', total);
+  const caps = [
+    "Guest sends a photo of a broken AC.",
+    "AI classifies: HVAC, high severity.",
+    "System picks the closest available worker.",
+    "Job lands on Ravi's phone.",
+    "Ravi accepts.",
+    "En route — ETA 15 minutes."
+  ];
+  [
+    [0, 1], [1200, 2], [2400, 3], [3600, 4], [5000, 5], [6400, 6]
+  ].forEach(([d,step])=>{
+    running.d2.timeouts.push(setTimeout(()=>{
+      showSteps('d2', step, 'data-d2');
+      setCap('d2', caps[step-1]);
+      setProg('d2', (step/total)*100, step, total);
+    }, d));
+  });
+}
+
+// =========================================================================
+// DEMO 3: Multilingual (6 beats)
+// =========================================================================
+function runD3(){
+  const total = 6;
+  resetCommon('d3', total);
+  const caps = [
+    "You type in English.",
+    "Priya receives it in Hindi.",
+    "She replies in Hindi.",
+    "Her reply arrives in English for you.",
+    "System prepares a Hindi checklist.",
+    "Priya gets the checklist, ready to work."
+  ];
+  [800, 1800, 3200, 4600, 6000, 7200].forEach((d,i)=>{
+    running.d3.timeouts.push(setTimeout(()=>{
+      showSteps('d3', i+1, 'data-d3');
+      setCap('d3', caps[i]);
+      setProg('d3', ((i+1)/total)*100, i+1, total);
+    }, d));
+  });
+}
+
+// =========================================================================
+// DEMO 4: AI video walkthrough (6 beats)
+// =========================================================================
+function runD4(){
+  const total = 6;
+  resetCommon('d4', total);
+  // reset counters, findings, upload
+  ['d4-f1','d4-f2','d4-f3','d4-f4'].forEach(id=>document.getElementById(id).classList.remove('show'));
+  document.getElementById('d4-issues').textContent = '0';
+  document.getElementById('d4-warns').textContent = '0';
+  document.getElementById('d4-oks').textContent = '0';
+  document.getElementById('d4-upload').style.width = '0';
+  document.getElementById('d4-upload-pct').textContent = '0%';
+  document.getElementById('d4-badge').innerHTML = '<span class="spinner"></span>Analysing frame 0 / 1,842';
+  // scan ring
+  const scan = document.getElementById('d4-scan');
+  scan.innerHTML = '<div class="scan-ring"></div><div class="scan-ring" style="animation-delay:1s"></div>';
+
+  const caps = [
+    "Worker uploads a 2-minute walkthrough.",
+    "Upload complete — AI starts analysing.",
+    "Two issues flagged, one warning, one confirmed ok.",
+    "Summary ready on the worker's phone.",
+    "Host reviews findings in the browser.",
+    "One tap to create maintenance jobs."
+  ];
+
+  // Beat 1: phone upload starts
+  running.d4.timeouts.push(setTimeout(()=>{
+    showSteps('d4', 1, 'data-d4');
+    setCap('d4', caps[0]); setProg('d4', 16, 1, total);
+    document.getElementById('d4-upload').style.width = '100%';
+    let pct = 0;
+    const iv = setInterval(()=>{ pct+=7; if(pct>=100){pct=100;clearInterval(iv)} document.getElementById('d4-upload-pct').textContent = pct+'%'; }, 100);
+  }, 200));
+  // Beat 2: upload done, analysis begins
+  running.d4.timeouts.push(setTimeout(()=>{
+    showSteps('d4', 2, 'data-d4');
+    setCap('d4', caps[1]); setProg('d4', 33, 2, total);
+    let fr = 0;
+    const iv = setInterval(()=>{
+      fr += 92;
+      if(fr >= 1842){ fr = 1842; clearInterval(iv); document.getElementById('d4-badge').innerHTML = '✦ Analysis complete'; }
+      document.getElementById('d4-badge').innerHTML = fr<1842 ? '<span class="spinner"></span>Analysing frame '+fr.toLocaleString()+' / 1,842' : '✦ Analysis complete';
+    }, 140);
+  }, 1800));
+  // Beat 3: findings appear one by one + counters animate
+  running.d4.timeouts.push(setTimeout(()=>{
+    setCap('d4', caps[2]); setProg('d4', 50, 3, total);
+    setTimeout(()=>{document.getElementById('d4-f1').classList.add('show'); counterTo(document.getElementById('d4-issues'), 1, 600);}, 200);
+    setTimeout(()=>{document.getElementById('d4-f3').classList.add('show'); counterTo(document.getElementById('d4-oks'), 1, 600);}, 900);
+    setTimeout(()=>{document.getElementById('d4-f2').classList.add('show'); counterTo(document.getElementById('d4-warns'), 1, 600);}, 1600);
+    setTimeout(()=>{document.getElementById('d4-f4').classList.add('show'); counterTo(document.getElementById('d4-issues'), 2, 500);}, 2300);
+  }, 4000));
+  // Beat 4-6
+  [[7500,4],[9000,5],[10500,6]].forEach(([d,step])=>{
+    running.d4.timeouts.push(setTimeout(()=>{
+      showSteps('d4', step, 'data-d4');
+      setCap('d4', caps[step-1]);
+      setProg('d4', (step/total)*100, step, total);
+    }, d));
+  });
+}
+
+// =========================================================================
+// DEMO 5: GPS dispatch (5 beats)
+// =========================================================================
+function runD5(){
+  const total = 5;
+  resetCommon('d5', total);
+  // reset pin
+  const p = document.getElementById('d5-p3');
+  p.style.top = '55%'; p.style.left = '80%';
+  const caps = [
+    "4 workers on shift. Villa Mar (★) needs a turnover.",
+    "System surfaces Manuel (M) — 0.8km away.",
+    "Dispatch sent. Manuel accepts.",
+    "Manuel is en route — pin moves toward the star.",
+    "Arrived. Job starts."
+  ];
+  [
+    [0, ()=>{ setCap('d5', caps[0]); setProg('d5', 20, 1, total); }],
+    [1400, ()=>{ setCap('d5', caps[1]); setProg('d5', 40, 2, total);
+      document.getElementById('d5-dispatch-card').style.borderColor = 'var(--brand-600)'; }],
+    [3000, ()=>{ showSteps('d5', 3, 'data-d5'); setCap('d5', caps[2]); setProg('d5', 60, 3, total); }],
+    [4600, ()=>{ setCap('d5', caps[3]); setProg('d5', 80, 4, total);
+      // move Manuel pin toward star
+      const p = document.getElementById('d5-p3');
+      p.style.top = '38%'; p.style.left = '68%';
+    }],
+    [7000, ()=>{ showSteps('d5', 5, 'data-d5'); setCap('d5', caps[4]); setProg('d5', 100, 5, total);
+      const p = document.getElementById('d5-p3');
+      p.style.top = '32%'; p.style.left = '70%';
+    }]
+  ].forEach(([d,fn])=>running.d5.timeouts.push(setTimeout(fn,d)));
+}
+
+// =========================================================================
+// DEMO 6: Ops guide + QR (9 beats)
+// =========================================================================
+function runD6(){
+  const total = 9;
+  resetCommon('d6', total);
+  const caps = [
+    "Host fills in wi-fi.",
+    "Adds check-out steps.",
+    "Adds AC remote notes.",
+    "Adds pool schedule.",
+    "Property-wide QR code generates.",
+    "Guest arrives and scans it.",
+    "Wi-fi credentials appear.",
+    "Pool hours.",
+    "One tap to reach the host."
+  ];
+  [500, 1300, 2100, 2900, 3700, 4700, 5500, 6200, 7000].forEach((d,i)=>{
+    running.d6.timeouts.push(setTimeout(()=>{
+      showSteps('d6', i+1, 'data-d6');
+      setCap('d6', caps[i]);
+      setProg('d6', ((i+1)/total)*100, i+1, total);
+    }, d));
+  });
+}
+
+// =========================================================================
+// DEMO 7: Revenue reports (4 beats)
+// =========================================================================
+function runD7(){
+  const total = 4;
+  resetCommon('d7', total);
+  document.getElementById('d7-rev').textContent = '0';
+  document.getElementById('d7-occ').textContent = '0%';
+  document.getElementById('d7-stay').textContent = '0';
+  document.getElementById('d7-take').textContent = '0';
+  document.querySelectorAll('#d7-bars [data-bar]').forEach(b=>b.style.width = '0');
+  const caps = [
+    "Month starts — 3 properties, 30 nights available.",
+    "Counters roll up with real data.",
+    "Per-property breakdown fills in.",
+    "AI surfaces one insight worth acting on."
+  ];
+  // Beat 1
+  running.d7.timeouts.push(setTimeout(()=>{
+    setCap('d7', caps[0]); setProg('d7', 25, 1, total);
+  }, 100));
+  // Beat 2: animate counters
+  running.d7.timeouts.push(setTimeout(()=>{
+    setCap('d7', caps[1]); setProg('d7', 50, 2, total);
+    counterTo(document.getElementById('d7-rev'), 401500, 1400, '₹');
+    counterTo(document.getElementById('d7-take'), 321100, 1400, '₹');
+    counterTo(document.getElementById('d7-occ'), 90, 1200, '', '%');
+    counterTo(document.getElementById('d7-stay'), 3.2, 1200);
+    // easier: just set stay nicely
+    setTimeout(()=>{document.getElementById('d7-stay').textContent = '3.2';}, 1250);
+    document.querySelectorAll('[data-d7-phone-step="1"], [data-d7-phone-step="2"]').forEach(e=>e.classList.add('show'));
+  }, 900));
+  // Beat 3: bars fill
+  running.d7.timeouts.push(setTimeout(()=>{
+    showSteps('d7', 3, 'data-d7');
+    setCap('d7', caps[2]); setProg('d7', 75, 3, total);
+    document.querySelectorAll('#d7-bars [data-bar]').forEach(b=>{ b.style.width = b.getAttribute('data-target'); });
+  }, 2800));
+  // Beat 4: AI insight
+  running.d7.timeouts.push(setTimeout(()=>{
+    showSteps('d7', 4, 'data-d7');
+    document.querySelectorAll('[data-d7-phone-step="4"]').forEach(e=>e.classList.add('show'));
+    setCap('d7', caps[3]); setProg('d7', 100, 4, total);
+  }, 4400));
+}
+
+// =========================================================================
+// DEMO 8: Airbnb iCal sync (8 beats) — NEW
+// =========================================================================
+const D8_URL = "https://www.airbnb.com/calendar/ical/52184729.ics?s=7a3c9d2e";
+const D8_EVENTS = [
+  {type:'reservation', guest:'Sarah K.', dates:'Jul 18 – 22', nights:4, color:'info'},
+  {type:'reservation', guest:'Marco T.', dates:'Jul 24 – 26', nights:2, color:'info'},
+  {type:'host block', guest:'Personal stay', dates:'Jul 26 – 28', nights:2, color:'neu'},
+  {type:'reservation', guest:'Priya S.', dates:'Jul 28 – Aug 2', nights:5, color:'info'},
+  {type:'reservation', guest:'Guest', dates:'Aug 4 – 7', nights:3, color:'info'},
+  {type:'host block', guest:'Maintenance', dates:'Aug 8 – 9', nights:1, color:'neu'},
+  {type:'reservation', guest:'Ana L.', dates:'Aug 12 – 18', nights:6, color:'info'},
+];
+function renderD8Preview(){
+  const wrap = document.getElementById('d8-prev-list');
+  wrap.innerHTML = '';
+  D8_EVENTS.forEach((ev, i) => {
+    const row = document.createElement('div');
+    row.className = 'fade-in';
+    row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:11px 14px;border-bottom:1px solid var(--slate-200);gap:10px;opacity:0';
+    row.innerHTML = '<div style="display:flex;align-items:center;gap:10px"><span class="badge '+ev.color+'">'+ev.type+'</span><div><div style="font-size:13px;font-weight:600;color:var(--ink)">'+ev.guest+'</div><div class="mono" style="font-size:11px;color:var(--slate-500)">'+ev.dates+'</div></div></div><div class="mono" style="font-size:11px;color:var(--slate-500)">'+ev.nights+' night'+(ev.nights>1?'s':'')+'</div>';
+    wrap.appendChild(row);
+    setTimeout(()=>{row.style.transition='opacity .3s var(--ease)';row.style.opacity='1';}, 80*i);
+  });
+}
+function runD8(){
+  const total = 8;
+  resetCommon('d8', total);
+  document.getElementById('d8-url').value = '';
+  document.getElementById('d8-phase1').style.display = 'block';
+  document.getElementById('d8-phase2').style.display = 'none';
+  document.getElementById('d8-phase3').style.display = 'none';
+  document.getElementById('d8-imp').textContent = '0';
+  ['d8-s1','d8-s2','d8-s3'].forEach(id=>{document.getElementById(id).classList.remove('active','done')});
+  document.getElementById('d8-phone-pre').style.display = 'flex';
+  document.getElementById('d8-phone-post').style.display = 'none';
+
+  const caps = [
+    "You grab the iCal URL from Airbnb and paste it in.",
+    "livaround connects and reads the calendar.",
+    "Preview — 7 events found, nothing imported yet.",
+    "You review — 5 reservations, 2 host blocks.",
+    "Hit save — sync is enabled.",
+    "Initial sync finishes in seconds.",
+    "Auto-sync active · every 2 hours · 23 bookings imported.",
+    "Turnover jobs auto-created. You're done."
+  ];
+
+  // Beat 1: type URL
+  running.d8.timeouts.push(setTimeout(()=>{
+    document.getElementById('d8-s1').classList.add('active');
+    setCap('d8', caps[0]); setProg('d8', 12, 1, total);
+    typeText(document.getElementById('d8-url'), D8_URL, 18);
+  }, 300));
+  // Beat 2: connect
+  running.d8.timeouts.push(setTimeout(()=>{
+    document.getElementById('d8-connect').innerHTML = '<span class="spinner"></span> Connecting…';
+    setCap('d8', caps[1]); setProg('d8', 25, 2, total);
+  }, 2800));
+  // Beat 3: preview phase
+  running.d8.timeouts.push(setTimeout(()=>{
+    document.getElementById('d8-s1').classList.remove('active'); document.getElementById('d8-s1').classList.add('done');
+    document.getElementById('d8-s2').classList.add('active');
+    document.getElementById('d8-phase1').style.display = 'none';
+    document.getElementById('d8-phase2').style.display = 'block';
+    setCap('d8', caps[2]); setProg('d8', 37, 3, total);
+    renderD8Preview();
+  }, 4200));
+  // Beat 4: review pause
+  running.d8.timeouts.push(setTimeout(()=>{
+    setCap('d8', caps[3]); setProg('d8', 50, 4, total);
+  }, 6600));
+  // Beat 5: save & enable
+  running.d8.timeouts.push(setTimeout(()=>{
+    setCap('d8', caps[4]); setProg('d8', 62, 5, total);
+    const btn = document.getElementById('d8-save');
+    btn.innerHTML = '<span class="spinner"></span> Saving…';
+  }, 7800));
+  // Beat 6: phase 3 active, initial sync finishes
+  running.d8.timeouts.push(setTimeout(()=>{
+    document.getElementById('d8-s2').classList.remove('active'); document.getElementById('d8-s2').classList.add('done');
+    document.getElementById('d8-s3').classList.add('active');
+    document.getElementById('d8-phase2').style.display = 'none';
+    document.getElementById('d8-phase3').style.display = 'block';
+    document.getElementById('d8-phone-pre').style.display = 'none';
+    document.getElementById('d8-phone-post').style.display = 'flex';
+    document.querySelectorAll('[data-d8-phone-step="7"]').forEach(e=>e.classList.add('show'));
+    setCap('d8', caps[5]); setProg('d8', 75, 6, total);
+  }, 9300));
+  // Beat 7: counter to 23
+  running.d8.timeouts.push(setTimeout(()=>{
+    counterTo(document.getElementById('d8-imp'), 23, 1400);
+    setCap('d8', caps[6]); setProg('d8', 88, 7, total);
+  }, 10500));
+  // Beat 8: AI card
+  running.d8.timeouts.push(setTimeout(()=>{
+    showSteps('d8', 8, 'data-d8');
+    document.getElementById('d8-s3').classList.remove('active'); document.getElementById('d8-s3').classList.add('done');
+    setCap('d8', caps[7]); setProg('d8', 100, 8, total);
+  }, 12200));
+}
+
+// Public play/reset --------------------------------------------------------
+const runners = { d1:runD1, d2:runD2, d3:runD3, d4:runD4, d5:runD5, d6:runD6, d7:runD7, d8:runD8 };
+function playDemo(id){ if(runners[id]) runners[id](); }
+function resetDemo(id){
+  if(running[id] && running[id].timeouts){ running[id].timeouts.forEach(t=>clearTimeout(t)); }
+  // re-initialise per demo-specific state by calling the runner and immediately cancelling everything except the first reset
+  const totals = {d1:4,d2:6,d3:6,d4:6,d5:5,d6:9,d7:4,d8:8};
+  resetCommon(id, totals[id]);
+  // demo-specific resets
+  if(id==='d1'){ document.getElementById('d1-draft').textContent=''; document.getElementById('d1-reply').textContent=''; }
+  if(id==='d4'){ ['d4-f1','d4-f2','d4-f3','d4-f4'].forEach(x=>document.getElementById(x).classList.remove('show'));
+    document.getElementById('d4-issues').textContent='0';document.getElementById('d4-warns').textContent='0';document.getElementById('d4-oks').textContent='0';
+    document.getElementById('d4-upload').style.width='0';document.getElementById('d4-upload-pct').textContent='0%';
+    document.getElementById('d4-badge').innerHTML='<span class="spinner"></span>Analysing frame 0 / 1,842';
+  }
+  if(id==='d5'){ const p = document.getElementById('d5-p3'); p.style.top='55%'; p.style.left='80%'; }
+  if(id==='d7'){ document.getElementById('d7-rev').textContent='0';document.getElementById('d7-occ').textContent='0%';document.getElementById('d7-stay').textContent='0';document.getElementById('d7-take').textContent='0';
+    document.querySelectorAll('#d7-bars [data-bar]').forEach(b=>b.style.width='0'); }
+  if(id==='d8'){
+    document.getElementById('d8-url').value='';document.getElementById('d8-phase1').style.display='block';document.getElementById('d8-phase2').style.display='none';document.getElementById('d8-phase3').style.display='none';
+    document.getElementById('d8-imp').textContent='0';['d8-s1','d8-s2','d8-s3'].forEach(x=>document.getElementById(x).classList.remove('active','done'));
+    document.getElementById('d8-phone-pre').style.display='flex';document.getElementById('d8-phone-post').style.display='none';
+    document.getElementById('d8-connect').textContent='Connect';document.getElementById('d8-save').innerHTML='<svg viewBox="0 0 24 24" fill="currentColor" width="14" height="14"><path d="M9 16.17 4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> Save & enable sync';
+  }
+  setCap(id, 'Press play to restart the demo.');
+}
+
+// Auto-play demo 1 + 8 when they scroll into view (first time only)
+const autoplayed = new Set();
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      const id = e.target.id;
+      if(['d1','d8'].includes(id) && !autoplayed.has(id)){
+        autoplayed.add(id);
+        setTimeout(()=>playDemo(id), 500);
+      }
+    }
+  });
+}, {threshold:0.3});
+document.querySelectorAll('section.demo').forEach(s=>io.observe(s));
+</script>
+</body>
+</html>
